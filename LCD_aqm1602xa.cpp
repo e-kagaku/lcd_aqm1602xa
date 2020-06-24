@@ -23,299 +23,308 @@ int LCD_aqm1602xa::writeStr(byte cltd, byte data) {
 
 void LCD_aqm1602xa::initialize() {
   delay(100);
-  writeCommand(0x38);  delay(20);
-  writeCommand(0x39);  delay(20);
-  writeCommand(0x14);  delay(20);
-  writeCommand(0x73);  delay(20);
-  writeCommand(0x51);  delay(20);
-  writeCommand(0x6C);  delay(20);
-  writeCommand(0x38);  delay(20);
-  writeCommand(0x01);  delay(20);
-  writeCommand(0x0C);  delay(20);
+  writeCommand(0x38);
+  delay(20);
+  writeCommand(0x39);
+  delay(20);
+  writeCommand(0x14);
+  delay(20);
+  writeCommand(0x73);
+  delay(20);
+  writeCommand(0x51);
+  delay(20);
+  writeCommand(0x6C);
+  delay(20);
+  writeCommand(0x38);
+  delay(20);
+  writeCommand(0x01);
+  delay(20);
+  writeCommand(0x0C);
+  delay(20);
 }
 
 void LCD_aqm1602xa::printLCD(String str) {
   int n = str.length();
   for (int i = 0; i < n; i = i + 1) {
-    if((str[i] & 0xFF) == 0xE3){  //Katakana
+    if ((str[i] & 0xFF) == 0xE3) {		 //Katakana
       char kana;
       i++;
-      if((str[i] & 0xFF) == 0x82){  //ア～タ
+      if ((str[i] & 0xFF) == 0x82) {		 //ア～タ
         i++;
         int c = str[i] & 0xFF;
-        switch(c){
-          case 0xA1:  //ァ
+        switch (c) {
+          case 0xA1:		  //ァ
             kana = '\xA7';
             break;
-          case 0xA2:  //ア
+          case 0xA2:		  //ア
             kana = '\xB1';
             break;
-          case 0xA3:  //ィ
+          case 0xA3:		  //ィ
             kana = '\xA8';
             break;
-          case 0xA4:  //イ
+          case 0xA4:		  //イ
             kana = '\xB2';
             break;
-          case 0xA5:  //ゥ
+          case 0xA5:		  //ゥ
             kana = '\xA9';
             break;
-          case 0xA6:  //ウ
+          case 0xA6:		  //ウ
             kana = '\xB3';
             break;
-          case 0xA7:  //ェ
+          case 0xA7:		  //ェ
             kana = '\xAA';
             break;
-          case 0xA8:  //エ
+          case 0xA8:		  //エ
             kana = '\xB4';
             break;
-          case 0xA9:  //ォ
+          case 0xA9:		  //ォ
             kana = '\xAB';
             break;
-          case 0xAA:  //オ
+          case 0xAA:		  //オ
             kana = '\xB5';
             break;
-          case 0xAB:  //カ
+          case 0xAB:		  //カ
             kana = '\xB6';
             break;
-          case 0xAC:  //ガ
+          case 0xAC:		  //ガ
             writeStr(DATA_WRITE, 0xB6);
             kana = '\xDE';
             break;
-          case 0xAD:  //キ
+          case 0xAD:		  //キ
             kana = '\xB7';
             break;
-          case 0xAE:  //ギ
+          case 0xAE:		  //ギ
             writeStr(DATA_WRITE, 0xB7);
             kana = '\xDE';
             break;
-          case 0xAF:  //ク
+          case 0xAF:		  //ク
             kana = '\xB8';
             break;
-          case 0xB0:  //グ
+          case 0xB0:		  //グ
             writeStr(DATA_WRITE, 0xB8);
             kana = '\xDE';
             break;
-          case 0xB1:  //ケ
+          case 0xB1:		  //ケ
             kana = '\xB9';
             break;
-          case 0xB2:  //ゲ
+          case 0xB2:		  //ゲ
             writeStr(DATA_WRITE, 0xB9);
             kana = '\xDE';
             break;
-          case 0xB3:  //コ
+          case 0xB3:		  //コ
             kana = '\xBA';
             break;
-          case 0xB4:  //ゴ
+          case 0xB4:		  //ゴ
             writeStr(DATA_WRITE, 0xBA);
             kana = '\xDE';
             break;
-          case 0xB5:  //サ
+          case 0xB5:		  //サ
             kana = '\xBB';
             break;
-          case 0xB6:  //ザ
+          case 0xB6:		  //ザ
             writeStr(DATA_WRITE, 0xBB);
             kana = '\xDE';
             break;
-          case 0xB7:  //シ
+          case 0xB7:		  //シ
             kana = '\xBC';
             break;
-          case 0xB8:  //ジ
+          case 0xB8:		  //ジ
             writeStr(DATA_WRITE, 0xBC);
             kana = '\xDE';
             break;
-          case 0xB9:  //ス
+          case 0xB9:		  //ス
             kana = '\xBD';
             break;
-          case 0xBA:  //ズ
+          case 0xBA:		  //ズ
             writeStr(DATA_WRITE, 0xBD);
             kana = '\xDE';
             break;
-          case 0xBB:  //セ
+          case 0xBB:		  //セ
             kana = '\xBE';
             break;
-          case 0xBC:  //ゼ
+          case 0xBC:		  //ゼ
             writeStr(DATA_WRITE, 0xBE);
             kana = '\xDE';
             break;
-          case 0xBD:  //ソ
+          case 0xBD:		  //ソ
             kana = '\xBF';
             break;
-          case 0xBE:  //ゾ
+          case 0xBE:		  //ゾ
             writeStr(DATA_WRITE, 0xBF);
             kana = '\xDE';
             break;
-          case 0xBF:  //タ
+          case 0xBF:		  //タ
             kana = '\xC0';
             break;
-          defaut:
+defaut:
             break;
         }
         writeStr(DATA_WRITE, kana);
-      }else if((str[i] & 0xFF) == 0x83){  //チ～ン
+      } else if ((str[i] & 0xFF) == 0x83) {		//チ～ン
         i++;
         int c = str[i] & 0xFF;
-        switch(c){
-          case 0x80:  //ダ
+        switch (c) {
+          case 0x80:		  //ダ
             writeStr(DATA_WRITE, 0xC0);
             kana = '\xDE';
             break;
-          case 0x81:  //チ
+          case 0x81:		  //チ
             kana = '\xC1';
             break;
-          case 0x82:  //ヂ
+          case 0x82:		  //ヂ
             writeStr(DATA_WRITE, 0xC1);
             kana = '\xDE';
             break;
-          case 0x83:  //ッ
+          case 0x83:		  //ッ
             kana = '\xAF';
             break;
-          case 0x84:  //ツ
+          case 0x84:		  //ツ
             kana = '\xC2';
             break;
-          case 0x85:  //ヅ
+          case 0x85:		  //ヅ
             writeStr(DATA_WRITE, 0xC2);
             kana = '\xDE';
             break;
-          case 0x86:  //テ
+          case 0x86:		  //テ
             kana = '\xC3';
             break;
-          case 0x87:  //デ
+          case 0x87:		  //デ
             writeStr(DATA_WRITE, 0xC3);
             kana = '\xDE';
             break;
-          case 0x88:  //ト
+          case 0x88:		  //ト
             kana = '\xC4';
             break;
-          case 0x89:  //ド
+          case 0x89:		  //ド
             writeStr(DATA_WRITE, 0xC4);
             kana = '\xDE';
             break;
-          case 0x8A:  //ナ
+          case 0x8A:		  //ナ
             kana = '\xC5';
             break;
-          case 0x8B:  //ニ
+          case 0x8B:		  //ニ
             kana = '\xC6';
             break;
-          case 0x8C:  //ヌ
+          case 0x8C:		  //ヌ
             kana = '\xC7';
             break;
-          case 0x8D:  //ネ
+          case 0x8D:		  //ネ
             kana = '\xC8';
             break;
-          case 0x8E:  //ノ
+          case 0x8E:		  //ノ
             kana = '\xC9';
             break;
-          case 0x8F:  //ハ
+          case 0x8F:		  //ハ
             kana = '\xCA';
             break;
-          case 0x90:  //バ
+          case 0x90:		  //バ
             writeStr(DATA_WRITE, 0xCA);
             kana = '\xDE';
             break;
-          case 0x91:  //パ
+          case 0x91:		  //パ
             writeStr(DATA_WRITE, 0xCA);
             kana = '\xDF';
             break;
-          case 0x92:  //ヒ
+          case 0x92:		  //ヒ
             kana = '\xCB';
             break;
-          case 0x93:  //ビ
+          case 0x93:		  //ビ
             writeStr(DATA_WRITE, 0xCB);
             kana = '\xDE';
             break;
-          case 0x94:  //ピ
+          case 0x94:		  //ピ
             writeStr(DATA_WRITE, 0xCB);
             kana = '\xDF';
             break;
-          case 0x95:  //フ
+          case 0x95:		  //フ
             kana = '\xCC';
             break;
-          case 0x96:  //ブ
+          case 0x96:		  //ブ
             writeStr(DATA_WRITE, 0xCC);
             kana = '\xDE';
             break;
-          case 0x97:  //プ
+          case 0x97:		  //プ
             writeStr(DATA_WRITE, 0xCC);
             kana = '\xDF';
             break;
-          case 0x98:  //ヘ
+          case 0x98:		  //ヘ
             kana = '\xCD';
             break;
-          case 0x99:  //ベ
+          case 0x99:		  //ベ
             writeStr(DATA_WRITE, 0xCD);
             kana = '\xDE';
             break;
-          case 0x9A:  //ペ
+          case 0x9A:		  //ペ
             writeStr(DATA_WRITE, 0xCD);
             kana = '\xDF';
             break;
-          case 0x9B:  //ホ
+          case 0x9B:		  //ホ
             kana = '\xCE';
             break;
-          case 0x9C:  //ボ
+          case 0x9C:		  //ボ
             writeStr(DATA_WRITE, 0xCE);
             kana = '\xDE';
             break;
-          case 0x9D:  //ポ
+          case 0x9D:		  //ポ
             writeStr(DATA_WRITE, 0xCE);
             kana = '\xDF';
             break;
-          case 0x9E:  //マ
+          case 0x9E:		  //マ
             kana = '\xCF';
             break;
-          case 0x9F:  //ミ
+          case 0x9F:		  //ミ
             kana = '\xD0';
             break;
-          case 0xA0:  //ム
+          case 0xA0:		  //ム
             kana = '\xD1';
             break;
-          case 0xA1:  //メ
+          case 0xA1:		  //メ
             kana = '\xD2';
             break;
-          case 0xA2:  //モ
+          case 0xA2:		  //モ
             kana = '\xD3';
             break;
-          case 0xA3:  //ャ
+          case 0xA3:		  //ャ
             kana = '\xAC';
             break;
-          case 0xA4:  //ヤ
+          case 0xA4:		  //ヤ
             kana = '\xD4';
             break;
-          case 0xA5:  //ュ
+          case 0xA5:		  //ュ
             kana = '\xAD';
             break;
-          case 0xA6:  //ユ
+          case 0xA6:		  //ユ
             kana = '\xD5';
             break;
-          case 0xA7:  //ョ
+          case 0xA7:		  //ョ
             kana = '\xAE';
             break;
-          case 0xA8:  //ヨ
+          case 0xA8:		  //ヨ
             kana = '\xD6';
             break;
-          case 0xA9:  //ラ
+          case 0xA9:		  //ラ
             kana = '\xD7';
             break;
-          case 0xAA:  //リ
+          case 0xAA:		  //リ
             kana = '\xD8';
             break;
-          case 0xAB:  //ル
+          case 0xAB:		  //ル
             kana = '\xD9';
             break;
-          case 0xAC:  //レ
+          case 0xAC:		  //レ
             kana = '\xDA';
             break;
-          case 0xAD:  //ロ
+          case 0xAD:		  //ロ
             kana = '\xDB';
             break;
-          case 0xAE:  //ヮ
-          case 0xAF:  //ワ
+          case 0xAE:		  //ヮ
+          case 0xAF:		  //ワ
             kana = '\xDC';
             break;
-          case 0xB2:  //ヲ
+          case 0xB2:		  //ヲ
             kana = '\xA6';
             break;
-          case 0xB3:  //ン
+          case 0xB3:		  //ン
             kana = '\xDD';
             break;
           default:
@@ -323,11 +332,26 @@ void LCD_aqm1602xa::printLCD(String str) {
         }
         writeStr(DATA_WRITE, kana);
       }
-    }else{
+    } else {
       writeStr(DATA_WRITE, str.charAt(i));
     }
     delay(1);
   }
+}
+
+void LCD_aqm1602xa::printLCD(int num) {
+  String str = String(num);
+  printLCD(str);
+}
+
+void LCD_aqm1602xa::printLCD(float num) {
+  String str = String(num);
+  printLCD(str);
+}
+
+void LCD_aqm1602xa::printLCD(long num) {
+  String str = String(num);
+  printLCD(str);
 }
 
 void LCD_aqm1602xa::clearLCD() {
@@ -354,16 +378,16 @@ void LCD_aqm1602xa::setCursor(int line, int row) {
   writeCommand(cur_pos);
 }
 
-void LCD_aqm1602xa::shiftCursorRight(int row = 1){
+void LCD_aqm1602xa::shiftCursorRight(int row = 1) {
   row < 0 ? 0 : row;
-  for(int i = 1 ; i <= row ; i++){
-    writeCommand(0x14); 
+  for (int i = 1; i <= row; i++) {
+    writeCommand(0x14);
   }
 }
 
-void LCD_aqm1602xa::shiftCursorLeft(int row = 1){
+void LCD_aqm1602xa::shiftCursorLeft(int row = 1) {
   row < 0 ? 0 : row;
-  for(int i = 1 ; i <= row ; i++){
-    writeCommand(0x10); 
+  for (int i = 1; i <= row; i++) {
+    writeCommand(0x10);
   }
 }
